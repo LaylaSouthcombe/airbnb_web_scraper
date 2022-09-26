@@ -1,6 +1,6 @@
-# AirBnb Web Scraper
+# Airbnb Web Scraper
 
-This web scraper uses puppeteer to launch a headless browser instance to allow scraping of single-page applications such as AirBnb.
+This web scraper uses puppeteer to launch a headless browser instance to allow scraping of single-page applications such as Airbnb.
 
 ## How to use
 
@@ -19,4 +19,4 @@ npm install
 node index.js
 ```
 - View the scraped property information in the terminal
-- Change the AirBnb properties by replacing the data in the urls array
+- Change the Airbnb properties by replacing the data in the urls array
