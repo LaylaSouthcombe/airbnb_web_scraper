@@ -24,3 +24,31 @@ const getPageHTMLAmenities = async (url) => {
       console.log(error);
     }
 };
+
+const getPageHTML = async (url) => {
+    try {
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.goto(url, { waitUntil: 'domcontentloaded'});
+        await page.waitForSelector('._fecoyn4', {timeout: 5000});
+        const propName = await (await page.$('._fecoyn4')).evaluate( node => node.innerText);
+        const numOfBedsHtml = await page.$$('.l7n4lsf')
+        const numOfBeds = await numOfBedsHtml[1].evaluate( node => node.innerText);
+        const numOfBaths = await numOfBedsHtml[3].evaluate( node => node.innerText);
+        console.log("Property url: ", url)
+        console.log("Property name: ", propName)
+        console.log("Number of bedrooms: ", numOfBeds.split(" ")[2])
+        console.log("Number of bathrooms: ", numOfBaths.split(" ")[2])
+        const amenities = await getPageHTMLAmenities(url)
+        console.log("Amenities: ", amenities)
+        await browser.close();
+    } catch (error) {
+      console.log(error);
+    }
+};
+  
+(async function() {
+    for await (let url of urls) {
+        await getPageHTML(url)
+    }
+})();
