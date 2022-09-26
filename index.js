@@ -11,20 +11,20 @@ const getPageHTMLAmenities = async (url) => {
         await page.goto(`${url}/amenities?`, { waitUntil: 'domcontentloaded'});
         //Wait for page-specific element to load to ensure fully loaded
         await page.waitForSelector('._gfomxi', {timeout: 5000});
-        //Obtain ammenities sections
-        let ammenitiesHtml = await page.$$('.rcem0st')
-        let ammenities = []
+        //Obtain amenities sections
+        let amenitiesHtml = await page.$$('.rcem0st')
+        let amenities = []
         //Cycle through found DOM elements and retrieve and format data
-        for(let i = 0; i < ammenitiesHtml.length; i++){
-            let item = await ammenitiesHtml[i].evaluate( node => node.innerText)        
+        for(let i = 0; i < amenitiesHtml.length; i++){
+            let item = await amenitiesHtml[i].evaluate( node => node.innerText)        
             if(item.includes('Unavailable')){
                 item = item.split('\n')[0]
             }
-            ammenities.push(item.replace("\n", ": "))
+            amenities.push(item.replace("\n", ": "))
         }
         //Close browser instance
         await browser.close();
-        return ammenities
+        return amenities
     } catch (error) {
       console.log(error);
     }
